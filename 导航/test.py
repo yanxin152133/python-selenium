@@ -19,7 +19,15 @@ service = Service(chromedriver_path)
 
 def main():
     driver = webdriver.Chrome(service=service, options=options)
-    driver.get('https://www.baidu.com')
+    # 导航
+    driver.get("https://www.selenium.dev/selenium/web/web-form.html")
+
+    # 请求浏览器信息
+    title = driver.title
+    print(title)
+
+    # 页面交互
+
     time.sleep(5)
     driver.quit()
 
