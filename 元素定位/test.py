@@ -4,10 +4,10 @@ from selenium.webdriver.chrome.service import Service
 import time
 
 # chrome-test路径
-chrome_testing_path = r"D:\chrome-test\chrome-win64\chrome.exe"
+chrome_testing_path = r"D:\chrome-for-test\chrome-win64\chrome.exe"
 
 # chromedriver/
-chromedriver_path = r"D:\chrome-test\chromedriver-win64\chromedriver.exe"
+chromedriver_path = r"D:\chrome-for-test\chromedriver-win64\chromedriver.exe"
 
 # 设置chrome选项
 options = webdriver.ChromeOptions()
