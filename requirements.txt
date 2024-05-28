@@ -3,3 +3,6 @@ pytest
 trio
 pytest-trio
 flake8
+file
+ddt
+pyyaml
