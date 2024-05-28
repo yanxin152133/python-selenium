@@ -45,6 +45,7 @@ def main():
     # Get all the elements available with tag name 'p'
     elements = element.find_elements(By.TAG_NAME, 'label')
     for e in elements:
+        print("根据TAG_NAME定位")
         print(e.text)
         print(element_CLASS_NAME.get_attribute("value"))
 
@@ -57,6 +58,7 @@ def main():
     # 元素定位（CSS）
     element_div = driver.find_element(By.TAG_NAME, value="div")
     element_CSSS = element_div.find_elements(By.CSS_SELECTOR, value='input[type="password"]')
+    print("根据css定位")
     for element_CSS in element_CSSS:
         element_CSS.clear()
         element_CSS.send_keys("123")
@@ -65,6 +67,11 @@ def main():
     # 元素定位（link_text）
     element_LINK_TEXT = driver.find_element(By.LINK_TEXT, "Return to index")
     element_LINK_TEXT.click()
+
+    # 元素定位（XPATH）
+    element_title = driver.find_element(By.XPATH, '/html/head/title').get_attribute("textContent")
+    print("title", element_title)
+
     driver.quit()
 
 
