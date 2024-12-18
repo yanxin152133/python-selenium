@@ -5,3 +5,4 @@ pytest-trio
 flake8
 file
 PyYAML~=6.0.2
+ddt~=1.7.2

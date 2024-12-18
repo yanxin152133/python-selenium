@@ -6,4 +6,4 @@
   except_value: selenium - 搜索
 -
   text: selenium-pom
-  except_value: selenium-pom - 搜索
+  except_value: 错误的期盼值
