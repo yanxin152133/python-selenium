@@ -39,7 +39,7 @@ class TestStringMethods(unittest.TestCase):
         self.page = Page(self.driver)
 
     @data(*load_yaml("../case_data/case.yaml"))
-    @unpack  #在“脱外套”之后，针对你拿到的每一条数据根据逗号进行拆分
+    @unpack  # 在“脱外套”之后，针对你拿到的每一条数据根据逗号进行拆分
     def test_case(self, text, except_value):
         self.page.test(text)
         print(self.page.getTitle())
