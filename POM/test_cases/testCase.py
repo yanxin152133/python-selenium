@@ -45,6 +45,7 @@ class TestStringMethods(unittest.TestCase):
         print(self.page.getTitle())
         self.assertEqual(self.page.getTitle(), except_value)
 
+
     def tearDown(self):
         self.page.quit()
 
