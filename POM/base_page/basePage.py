@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver import Keys
 from selenium.webdriver.chrome import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -28,7 +29,8 @@ class BasePage:
         self.locator(locator).send_keys(text)
 
     def click(self, locator):
-        self.locator(locator).click()
+        # 防止使用click保存进而使用send_keys
+        self.driver.find_element(*locator).send_keys(Keys.ENTER)
 
     def quit(self):
         self.driver.quit()
