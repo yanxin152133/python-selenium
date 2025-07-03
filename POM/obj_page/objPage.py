@@ -10,6 +10,8 @@ class Page(BasePage):
 
     def test(self, text):
         self.get(self.url)
+        # 最大化窗口
+        self.driver.maximize_window()
         wait = WebDriverWait(self.driver, timeout=10)
         wait.until(lambda d: self.locator(self.submit).is_displayed())
         self.input_text(self.search, text)

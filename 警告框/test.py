@@ -36,6 +36,7 @@ def main():
 
     print("Confirm 确认框")
     element1 = driver.find_element(By.ID, "confirmButton")
+    # 若普通点击失效（如元素被遮挡），用JavaScript强制执行点击
     driver.execute_script("arguments[0].click();", element1)
 
     wait1 = WebDriverWait(driver, timeout=2)
@@ -47,7 +48,7 @@ def main():
 
     print("Prompt 提示框")
     element2 = driver.find_element(By.ID, "promptButton")
-    driver.execute_script("arguments[0].click();", element2)
+    driver.execute_script("arguments[0].click();", element2)    # 使用js方式进行点击
 
     wait2 = WebDriverWait(driver, timeout=2)
     alert2 = wait2.until(lambda d: d.switch_to.alert)
