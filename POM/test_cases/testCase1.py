@@ -1,28 +1,17 @@
 import sys
-import unittest
+
+import pytest
+from ddt import unpack, data
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 
 from POM.obj_page.objPage import Page
-import yaml
-from ddt import ddt, data, unpack
+from POM.test_cases.testCase import load_yaml
 
 
-def load_yaml(yaml_file):
-    with open(yaml_file, 'r', encoding='utf-8') as f:
-        try:
-            datas = yaml.safe_load(f)
-            print("yaml", datas)
-            return datas
-        except yaml.YAMLError as ex:
-            print(ex)
-
-
-@ddt
-class TestStringMethods(unittest.TestCase):
-
-    def setUp(self):
+class TestMethods():
+    def setup_method(self, method):
         global chrome_testing_path, chromedriver_path
 
         if sys.platform.startswith('linux'):
@@ -61,6 +50,9 @@ class TestStringMethods(unittest.TestCase):
         self.driver = webdriver.Chrome(service=service, options=options)
         self.page = Page(self.driver)
 
+    def teardown_method(self, method):
+        self.driver.quit()
+
     @data(*load_yaml("../case_data/case.yaml"))
     @unpack  # 在“脱外套”之后，针对你拿到的每一条数据根据逗号进行拆分
     def test_case_1(self, text, except_value):
@@ -69,17 +61,6 @@ class TestStringMethods(unittest.TestCase):
         print(self.page.getTitle())
         self.assertEqual(self.page.getTitle(), except_value)
 
-    @data(*load_yaml("../case_data/case.yaml"))
-    @unpack  # 在“脱外套”之后，针对你拿到的每一条数据根据逗号进行拆分
-    def test_case_2(self, text, except_value):
-        print("test_case_2")
-        self.page.test(text)
-        print(self.page.getTitle())
-        self.assertEqual(self.page.getTitle(), except_value)
-
-    def tearDown(self):
-        self.page.quit()
-
 
 if __name__ == '__main__':
-    unittest.main()  # unittest.main()会去查找所有以test开头的方法，并把它们当做一个个测试用例
+    pytest.main()
