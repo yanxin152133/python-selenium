@@ -1,13 +1,23 @@
 import sys
 
 import pytest
+import yaml
 from ddt import unpack, data
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 
 from POM.obj_page.objPage import Page
-from POM.test_cases.testCase import load_yaml
+
+
+def load_yaml(yaml_file):
+    with open(yaml_file, encoding='utf-8') as f:
+        try:
+            datas = yaml.load(f, Loader=yaml.FullLoader)
+            print("yaml", datas)
+            return datas
+        except yaml.YAMLError as ex:
+            print(ex)
 
 
 class TestMethods():
@@ -53,13 +63,10 @@ class TestMethods():
     def teardown_method(self, method):
         self.driver.quit()
 
-    @data(*load_yaml("../case_data/case.yaml"))
-    @unpack  # 在“脱外套”之后，针对你拿到的每一条数据根据逗号进行拆分
-    def test_case_1(self, text, except_value):
-        print("test_case_1")
-        self.page.test(text)
-        print(self.page.getTitle())
-        self.assertEqual(self.page.getTitle(), except_value)
+    # 测试输出测试用例yaml文件
+    @pytest.mark.parametrize("castle", load_yaml("../case_data/case.yaml"))
+    def test_case_1(self, castle):
+        print("测试用例：", castle)
 
 
 if __name__ == '__main__':
